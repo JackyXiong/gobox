@@ -90,6 +90,17 @@ func TestPop(t *testing.T) {
 	assert.Equal(t, qLen-1, deque.Pop(), "test method Pop()")
 }
 
+func TestPopLeft(t *testing.T) {
+	deque := NewDeque()
+	assert.Equal(t, nil, deque.PopLeft(), "test method PopLeft() empty deque")
+
+	qLen := 10
+	for i := 0; i < qLen; i++ {
+		deque.Append(i)
+	}
+	assert.Equal(t, 0, deque.PopLeft(), "test method PopLeft()")
+}
+
 func TestCount(t *testing.T) {
 	deque := NewDeque()
 	qLen := 10
@@ -97,4 +108,16 @@ func TestCount(t *testing.T) {
 		deque.Append(i)
 	}
 	assert.Equal(t, qLen, deque.Count(), "test method Count()")
+}
+
+func TestRemove(t *testing.T) {
+	deque := NewDeque()
+	qLen := 10
+	for i := 0; i < qLen; i++ {
+		deque.Append(i)
+	}
+	element := 3
+	removed_element := deque.Remove(element)
+	assert.Equal(t, qLen-1, deque.Count(), "test method Remove()")
+	assert.Equal(t, removed_element, element, "test method Remove()")
 }

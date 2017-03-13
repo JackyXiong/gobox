@@ -79,6 +79,37 @@ func (q *Deque) Pop() interface{} {
 	return nil
 }
 
+func (q *Deque) PopLeft() interface{} {
+	q.mutex.Lock()
+	defer q.mutex.Unlock()
+
+	front := q.container.Front()
+	if front != nil {
+		q.container.Remove(front)
+		q.len--
+		return front.Value
+	}
+	return nil
+}
+
 func (q *Deque) Count() int {
 	return q.len
+}
+
+func (q *Deque) Remove(element interface{}) interface{} {
+	q.mutex.Lock()
+	defer q.mutex.Unlock()
+
+	if q.len == 0 {
+		return nil
+	}
+
+	for e := q.container.Front(); e != nil; e = e.Next() {
+		if e.Value == element {
+			q.container.Remove(e)
+			q.len--
+			return element
+		}
+	}
+	return nil
 }
