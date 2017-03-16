@@ -1,4 +1,4 @@
-package gobox
+package goboxes
 
 import (
 	"github.com/stretchr/testify/assert"
